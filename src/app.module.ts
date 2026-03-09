@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { XzenModule } from './xzen/xzen.module';
+import { UsersModule } from './users/users.module';
+import { XzenModule } from './xzen/xzen.module';
 
 @Module({
-  imports: [XzenModule],
+  imports: [XzenModule, UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
