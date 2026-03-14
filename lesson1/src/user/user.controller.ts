@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -9,8 +9,23 @@ export class UserController {
   DELETE /Users/:id
   
   */
-  @Get()
-  findAll(): string {
-    return 'This action returns all cats';
+  @Get() // GET /User
+  findAll() {
+    return [];
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return { id };
+  }
+
+  @Post()
+  Create(@Body() user: { '' }) {
+    return user;
+  }
+
+  @Patch(':id')
+  Update(@Param('id') id: string) {
+    return { id };
   }
 }
