@@ -1,9 +1,16 @@
 import { Controller, Post } from '@nestjs/common';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
+  authService: AuthService;
+  constructor(authService: AuthService) {
+    this.authService = authService;
+  }
+
   @Post('register')
   register() {
-    return { message: 'register user successfully!' };
+    const result = this.authService.registerUser();
+    return { message: 'register user successfully!', result };
   }
 }
