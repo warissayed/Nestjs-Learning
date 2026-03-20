@@ -11,6 +11,8 @@ export class AuthService {
      * 4. Save user to database
      * 5. Return success message
      */
+    //1 Validate user input
+
     return { message: 'this is the message from service' };
   }
 }
