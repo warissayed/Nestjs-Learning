@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-  registerUser() {
+  constructor(private readonly userService: UserService) {}
+  registerUser(registerUserDto: RegisterUserDto) {
     /*
      * TODO: Implement user registration logic here
      * 1. Validate user input
@@ -12,7 +15,19 @@ export class AuthService {
      * 5. Return success message
      */
     //1 Validate user input
+    if (
+      !registerUserDto.fname ||
+      !registerUserDto.lname ||
+      !registerUserDto.email ||
+      !registerUserDto.password
+    ) {
+      throw new Error('All fields are required');
+    }
+    this.userService.createUser();
 
-    return { message: 'this is the message from service' };
+    return {
+      message: 'this is the message from service',
+      data: registerUserDto,
+    };
   }
 }
