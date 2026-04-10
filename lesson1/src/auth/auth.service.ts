@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { UserService } from 'src/user/user.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly userService: UserService) {}
-  registerUser(registerUserDto: RegisterUserDto) {
+  async registerUser(registerUserDto: RegisterUserDto) {
     /*
      * TODO: Implement user registration logic here
      * 1. Validate user input
@@ -15,6 +16,7 @@ export class AuthService {
      * 5. Return success message
      */
     //1 Validate user input
+
     if (
       !registerUserDto.fname ||
       !registerUserDto.lname ||
@@ -23,7 +25,8 @@ export class AuthService {
     ) {
       throw new Error('All fields are required');
     }
-    this.userService.createUser();
+    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
+    console.log('hashedPassword', hashedPassword);
 
     return {
       message: 'this is the message from service',
