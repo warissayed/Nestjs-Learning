@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(private readonly userService: UserService) {}
   async registerUser(registerUserDto: RegisterUserDto) {
+  const saltRounds = 10;
     /*
      * TODO: Implement user registration logic here
      * 1. Validate user input
@@ -16,21 +17,9 @@ export class AuthService {
      * 5. Return success message
      */
     //1 Validate user input
+  //Hash Password 
+  const hashedPassword = await bcrypt.hash(registerUserDto.password, saltRounds);
 
-    if (
-      !registerUserDto.fname ||
-      !registerUserDto.lname ||
-      !registerUserDto.email ||
-      !registerUserDto.password
-    ) {
-      throw new Error('All fields are required');
-    }
-    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
-    console.log('hashedPassword', hashedPassword);
-
-    return {
-      message: 'this is the message from service',
-      data: registerUserDto,
-    };
+    return this.userService.createUser(...registerUserDto, password: hashedPassword);
   }
 }
