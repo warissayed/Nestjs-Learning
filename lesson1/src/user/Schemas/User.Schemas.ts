@@ -20,6 +20,9 @@ export class User {
 
   @Prop({ default: UserRole.User })
   role: UserRole;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
