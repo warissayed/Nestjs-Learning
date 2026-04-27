@@ -22,6 +22,9 @@ export class User {
   role!: UserRole;
 
   @Prop({ default: Date.now })
+  updatedAt!: Date;
+
+  @Prop({ default: Date.now })
   createdAt!: Date;
 }
 
